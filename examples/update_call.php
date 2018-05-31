@@ -16,6 +16,6 @@ CTM\configure(10000, 'key', 'secret');
 $data = CTM\parse_data();
 
 if ($data)
-	CTM\Calls\update($call->id, array('tags' => 'something'));
+	CTM\Calls\update($data->id, array('tags' => 'something'));
 
 ?>
