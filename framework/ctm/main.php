@@ -11,7 +11,8 @@ namespace CTM;
 require_once('config.php');
 require_once('calls.php');
 
-use CTM\Config;
+
+class Exception extends \Exception;
 
 
 /**
