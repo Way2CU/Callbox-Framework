@@ -15,7 +15,9 @@ CTM\configure(10000, 'key', 'secret');
 // update call
 $data = CTM\parse_data();
 
-if ($data)
-	CTM\Calls\update($data->id, array('tags' => 'something'));
+if ($data) {
+	$tags = array('new', 'sold');
+	CTM\Calls\update($data->id, array('tag_list' => implode(',', $tags)));
+}
 
 ?>
