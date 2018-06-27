@@ -13,6 +13,7 @@
 
 namespace CTM\Calls;
 
+use CTM\Exception;
 use CTM\Config;
 
 
@@ -54,8 +55,32 @@ function redact($call_id, $redact_related) {
  *
  * @param integer $call_id
  * @param array $data
+ * @return boolean
  */
-function update($call_id, $data) {
+function update($call_id, $data=array()) {
+	$result = true;
+
+	// make sure we have data to work with
+	if (count($data) == 0)
+		throw new Exception('Unable to modify call with empty data!');
+
+	// prepare for call
+	$url = Config::get_endpoint_url('/calls/{call_id}/modify', array('call_id' => $call_id));
+	$context = Config::get_context(
+			'POST',
+			array('Content-Type', 'application/json'),
+			json_encode($data)
+		);
+
+	// get response from remote server
+	$raw_response = file_get_contents($url, false, $context);
+	$response = json_decode($raw_response);
+
+	// TODO: Test stupid API and see what the response code is.
+	/* if ($response !== null) */
+	/* 	$result = $response->code; */
+
+	return $result;
 }
 
 /**
